@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_white"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="任我行"
+        android:textColor="#333333"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+    <!-- 整个LinearLayout是账号和请输入账号的矩形框架 -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:padding="10sp">
+        <!-- 帐号的布局 -->
+        <TextView
+            android:id="@+id/tv_loginAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号："
+            android:textColor="@android:color/black"
+            android:textSize="18.0sp" />
+        <!-- EditText表示的是请输入帐号的一个布局 -->
+        <EditText
+            android:id="@+id/loginAccount_id"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="账号/用户名/手机号"
+            android:textColorHint="@color/text_gray"
+            android:padding="5.0dip"
+            android:paddingRight="40dp"
+            android:textColor="#ff3b3b3b"
+            android:background="@drawable/edit_bg"
+            android:textSize="16.0sp" >
+        </EditText>
+    </LinearLayout>
+    <!-- 密码和请输入密码的整个布局 -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:padding="10sp">
+        <!-- 密码的布局 -->
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码："
+            android:textColor="@android:color/black"
+            android:textSize="18.0sp"/>
+        <!-- 请输入密码的布局 -->
+        <EditText
+            android:id="@+id/password_id"
+            android:layout_width="163dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_bg"
+            android:padding="5.0dip"
+            android:paddingRight="30dp"
+            android:textColor="#ff3b3b3b"
+            android:textSize="16.0sp"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="#fff" />
+    <!-- 找回密码和立即注册的布局 -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:padding="10sp" >
+        <!-- 找回密码 -->
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="60dp"
+            android:text="找回密码"
+            android:textSize="15sp"
+            android:textColor="@color/text_gray"
+            android:textStyle="bold" />
+        <!-- 立即注册 -->
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="60dp"
+            android:layout_weight="0.03"
+            android:text="立即注册"
+            android:textColor="@color/text_gray"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#FCFCFC">
+
+    <TextView
+        android:padding="12dp"
+        android:id="@+id/site_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/head_img"
+        android:layout_marginTop="10dp"
+        android:textSize="30dp"
+        android:text="淮南八日游"
+        android:textColor="@color/bg_black" />
+    <TextView
+        android:id="@+id/site_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/head_img"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18dp"
+        android:text="淮南师范学院/八公山/龙湖公园/豪华豆腐宴"
+        android:textColor="@color/cyan" />
+
+    <TextView
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/head_img"
+        android:layout_marginTop="5dp"
+        android:textSize="18dp"
+        android:text="       淮南，安徽省下辖地级市，简称淮，古名州来，位于安徽省中北部，地处长江三角洲腹地，淮河之滨，素有“中州咽喉，江南屏障”、“五彩淮南”之称，是沿淮城市群的重要节点，合肥都市圈核心城市。"
+        android:textColor="@color/bg_black" />
+    <TextView
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18dp"
+        android:text="       淮南文化底蕴厚重。西汉时淮南王刘安在八公山招贤纳士，著书立说，编纂了千古名篇－－被称为中国古代百科全书的《淮南子》，发明了华夏美食－－豆腐。淮南名胜古迹众多，有被中外考古学家称道的“五古”（即古战场、古墓群、古寿州窑、茅仙古洞、古生物化石群），其中的淝水之战是军事史上以少胜多的著名战例。"
+        android:textColor="@color/bg_black" />
+    <TextView
+        android:padding="12dp"
+        android:id="@+id/site_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18dp"
+        android:text="价格：5000"
+        android:textColor="@color/cyan" />
+
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/head_img"
+        android:layout_width="280dp"
+        android:layout_height="250dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="12dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/huainan" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/id_site_button_reserve"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#008000"
+            android:gravity="center"
+            android:text="预定"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>

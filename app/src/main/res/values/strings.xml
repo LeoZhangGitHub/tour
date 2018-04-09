@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">任我行</string>
+
+    <string name="tab_menu_homepage">首页</string>
+    <string name="tab_menu_browse">发现</string>
+    <string name="tab_menu_mine">我的</string>
+
+</resources>
