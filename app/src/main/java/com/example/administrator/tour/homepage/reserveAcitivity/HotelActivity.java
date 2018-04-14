@@ -31,10 +31,12 @@ public class HotelActivity extends Activity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(HotelActivity.this, LinearLayoutManager.VERTICAL, false));
         List<Data> dataList = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            Data data = new Data("标题","500kuai","fasdfadsasf");
-            dataList.add(data);
-        }
+        Data data = new Data("假日酒店", 5000,"about");
+        dataList.add(data);
+        Data data1 = new Data("南京宾馆", 3000,"browse");
+        dataList.add(data1);
+        Data data2 = new Data("北京旅社", 3000,"site1");
+        dataList.add(data2);
         HomepageHotelRecylerAdapter adapter = new HomepageHotelRecylerAdapter(HotelActivity.this, dataList);
 
 

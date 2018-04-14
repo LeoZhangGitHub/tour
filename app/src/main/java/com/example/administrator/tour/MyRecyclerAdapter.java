@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -47,6 +48,11 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         holder.tv_title.setText(dataList.get(position).getTitle());
         holder.tv_content.setText(dataList.get(position).getContent());
 
+        int id = getImageViewSourceId.getInstance().getResId(
+                dataList.get(position).getImageView(), R.mipmap.class);
+
+        holder.imageView.setImageResource(id);
+
 
         if (onRecyclerViewListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +78,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
 
         private TextView tv_content;
 
+        private ImageView imageView;
+
         MyViewHolder(View itemView) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.content_title);
             tv_content = (TextView) itemView.findViewById(R.id.content);
+            imageView = (ImageView) itemView.findViewById(R.id.head_img);
         }
     }
 

@@ -47,7 +47,7 @@ public class HomepageTrafficRecyclerAdapter extends RecyclerView.Adapter<Homepag
         @Override
         public void onBindViewHolder(final HomepageTrafficRecyclerAdapter.MyViewHolder holder, int position) {
             holder.traffic_title.setText(dataList.get(position).getTitle());
-            holder.traffic_price.setText(dataList.get(position).getPrice());
+            holder.traffic_price.setText("RMB: " + dataList.get(position).getPrice());
 
 
             if (onRecyclerViewListener != null) {

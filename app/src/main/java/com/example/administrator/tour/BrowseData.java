@@ -10,9 +10,20 @@ public class BrowseData {
 
     private String content;
 
-    public BrowseData(String title, String content) {
+    private String imageView;
+
+    public String getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(String imageView) {
+        this.imageView = imageView;
+    }
+
+    public BrowseData(String title, String content, String imageView) {
         this.title = title;
         this.content = content;
+        this.imageView = imageView;
     }
 
     public String getTitle() {

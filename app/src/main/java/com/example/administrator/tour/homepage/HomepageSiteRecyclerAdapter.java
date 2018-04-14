@@ -5,6 +5,7 @@ package com.example.administrator.tour.homepage;
  */
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.administrator.tour.BrowseData;
 import com.example.administrator.tour.R;
+import com.example.administrator.tour.getImageViewSourceId;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -54,17 +56,13 @@ public class HomepageSiteRecyclerAdapter extends RecyclerView.Adapter<HomepageSi
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.site_title.setText(dataList.get(position).getTitle());
-        holder.site_price.setText(dataList.get(position).getPrice());
+        holder.site_price.setText("RMB: " + dataList.get(position).getPrice());
         holder.site_content.setText(dataList.get(position).getContent());
-       // holder.imageView.setImageDrawable();
 
-       /* try {
-           url = new URL("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523115695003&di=77bc6003204f3a4b0734d4ff7b35770c&imgtype=0&src=http%3A%2F%2Fpic29.photophoto.cn%2F20131204%2F0034034499213463_b.jpg");
+        int id = getImageViewSourceId.getInstance().getResId(
+                dataList.get(position).getImageView(), R.mipmap.class);
 
-        } catch (MalformedURLException e) {
-
-        }
-        holder.imageView.setImageBitmap(url);*/
+        holder.imageView.setImageResource(id);
 
         if (onRecyclerViewListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

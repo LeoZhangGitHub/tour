@@ -7,14 +7,14 @@
 
    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:background="@drawable/shape_button"
         >
 
        <ImageView
            android:id="@+id/head_img"
-           android:layout_width="190dp"
-           android:layout_height="190dp"
+           android:layout_width="150dp"
+           android:layout_height="150dp"
            android:layout_alignParentStart="true"
            android:layout_alignParentTop="true"
            android:padding="12dp"

@@ -13,52 +13,52 @@ import com.example.administrator.tour.homepage.reserveAcitivity.DataType;
 
 public class Data {
     private String title;
-    private String price;
+    private int price;
     private String content;
-    private String numOfPeople;
-    private String img_name;
-    private DataType dataType;
-    private Object imageView;
+    private int numOfPeople;
+    private String imageView;
 
-    public Object getImageView() {
+    public String getImageView() {
         return imageView;
     }
 
-    public void setImageView(Object imageView) {
-        this.imageView = imageView;
-    }
-
-    public String getImg_name() {
-        return img_name;
-    }
-
-    public void setImg_name(String img_name) {
-        this.img_name = img_name;
-    }
-
-    public Data(String title, String price, String content) {
+    //homapage site data
+    public Data(String title, int price, String content,String imageView) {
         this.title = title;
         this.price = price;
         this.content = content;
         this.imageView = imageView;
     }
 
-    public Data(String title, String price, String content, String numOfPeople) {
+    //hotelActivity data
+    public Data(String title,int price,String imageView){
+        this.title = title;
+        this.price = price;
+        this.imageView = imageView;
+    }
+
+    //homepage group_ticket data
+    public Data(String title, int price, String content, int numOfPeople,String imageView) {
         this.title = title;
         this.price = price;
         this.content = content;
         this.numOfPeople = numOfPeople;
+        this.imageView = imageView;
     }
 
-    public String getNumOfPeople() {
+
+
+
+    public int getNumOfPeople() {
         return numOfPeople;
     }
 
-    public void setNumOfPeople(String numOfPeople) {
+    public void setNumOfPeople(int numOfPeople) {
         this.numOfPeople = numOfPeople;
     }
 
-    public Data(String title, String price) {
+    //homepage traffic data
+    public Data(String title, int price) {
         this.title = title;
         this.price = price;
     }
@@ -71,11 +71,11 @@ public class Data {
         this.title = title;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

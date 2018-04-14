@@ -5,11 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.tour.BrowseData;
 import com.example.administrator.tour.MyRecyclerAdapter;
 import com.example.administrator.tour.R;
+import com.example.administrator.tour.getImageViewSourceId;
 
 import java.util.List;
 
@@ -48,9 +50,13 @@ public class HomepageHotelRecylerAdapter  extends RecyclerView.Adapter<HomepageH
 
         @Override
         public void onBindViewHolder(final HomepageHotelRecylerAdapter.MyViewHolder holder, int position) {
-            holder.site_title.setText(dataList.get(position).getTitle());
-            holder.site_price.setText(dataList.get(position).getPrice());
-            holder.site_content.setText(dataList.get(position).getContent());
+            holder.hotel_title.setText(dataList.get(position).getTitle());
+            holder.hotel_price.setText("RMB: "+dataList.get(position).getPrice());
+
+            int id = getImageViewSourceId.getInstance().getResId(
+                    dataList.get(position).getImageView(), R.mipmap.class);
+
+            holder.hotel_imageView.setImageResource(id);
 
             if (onRecyclerViewListener != null) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -72,15 +78,15 @@ public class HomepageHotelRecylerAdapter  extends RecyclerView.Adapter<HomepageH
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView site_title;
-        private TextView site_price;
-        private TextView site_content;
+        private TextView hotel_title;
+        private TextView hotel_price;
+        private ImageView hotel_imageView;
 
         MyViewHolder(View itemView) {
             super(itemView);
-            site_title = (TextView) itemView.findViewById(R.id.hotel_title);
-            site_price = (TextView) itemView.findViewById(R.id.hotel_price);
-            site_content = (TextView) itemView.findViewById(R.id.hotel_content);
+            hotel_title = (TextView) itemView.findViewById(R.id.hotel_title);
+            hotel_price = (TextView) itemView.findViewById(R.id.hotel_price);
+            hotel_imageView = (ImageView) itemView.findViewById(R.id.head_img);
         }
     }
 

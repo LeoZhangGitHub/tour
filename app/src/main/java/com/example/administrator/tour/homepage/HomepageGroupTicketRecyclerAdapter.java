@@ -1,14 +1,17 @@
 package com.example.administrator.tour.homepage;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.tour.BrowseData;
 import com.example.administrator.tour.R;
+import com.example.administrator.tour.getImageViewSourceId;
 
 import java.util.List;
 
@@ -48,9 +51,15 @@ public interface OnRecyclerViewListener{
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.group_title.setText(dataList.get(position).getTitle());
-        holder.group_price.setText(dataList.get(position).getPrice());
+        holder.group_price.setText("RMB: " + dataList.get(position).getPrice());
         holder.group_content.setText(dataList.get(position).getContent());
-        holder.group_num_people.setText(dataList.get(position).getNumOfPeople());
+        holder.group_num_people.setText("参团人数: "+dataList.get(position).getNumOfPeople());
+
+
+        int id = getImageViewSourceId.getInstance().getResId(
+                dataList.get(position).getImageView(), R.mipmap.class);
+
+        holder.group_imageView.setImageResource(id);
 
         if (onRecyclerViewListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +82,7 @@ public interface OnRecyclerViewListener{
         private TextView group_price;
         private TextView group_content;
         private TextView group_num_people;
+        private ImageView group_imageView;
 
         MyViewHolder(View itemView) {
             super(itemView);
@@ -80,6 +90,7 @@ public interface OnRecyclerViewListener{
             group_price = (TextView) itemView.findViewById(R.id.group_price);
             group_content = (TextView) itemView.findViewById(R.id.group_content);
             group_num_people = (TextView) itemView.findViewById(R.id.group_num_people);
+            group_imageView = (ImageView) itemView.findViewById(R.id.head_img);
         }
     }
 

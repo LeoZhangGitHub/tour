@@ -18,8 +18,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:padding="12dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/head" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/group_title"

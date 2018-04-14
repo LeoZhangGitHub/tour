@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/head_img"
-            android:layout_width="108dp"
-            android:layout_height="108dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:padding="12dp"
             android:src="@mipmap/head"
             android:scaleType="centerCrop"/>
@@ -26,7 +26,6 @@
             android:layout_toEndOf="@+id/head_img"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
-            android:text="哈哈哈哈 "
             android:textColor="@color/colorPrimary" />
 
         <TextView
@@ -35,7 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/head_img"
             android:layout_marginTop="40dp"
-            android:text="哈哈哈哈sdff"
             android:textColor="#000333"/>
         <TextView
             android:id="@+id/hotel_price"
@@ -45,7 +43,6 @@
             android:layout_toEndOf="@+id/head_img"
             android:padding="3dp"
             android:layout_marginTop="120dp"
-            android:text="哈哈哈哈ffsdff"
             android:textColor="#000333"/>
 
     </RelativeLayout>
