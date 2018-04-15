@@ -12,6 +12,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="景点"
+            android:textColor="@drawable/homepage_top_bar"
             android:textSize="18sp"
             android:layout_weight="1"/>
         <TextView
@@ -20,6 +21,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="交通"
+            android:textColor="@drawable/homepage_top_bar"
             android:textSize="18sp"
             android:layout_weight="1"/>
         <TextView
@@ -27,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@drawable/homepage_top_bar"
             android:text="酒店"
             android:textSize="18sp"
             android:layout_weight="1"/>
@@ -36,6 +39,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="团购"
+            android:textColor="@drawable/homepage_top_bar"
             android:textSize="18sp"
             android:layout_weight="1"/>
 
@@ -53,4 +57,10 @@
         android:layout_below="@id/ly_top_bar"
         android:layout_above="@id/div_tab_bar"
         android:id="@+id/lya_content"></FrameLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation"/>
 </LinearLayout>

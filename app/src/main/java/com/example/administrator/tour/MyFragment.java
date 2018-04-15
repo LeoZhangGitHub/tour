@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.example.administrator.tour.homepage.MyFragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +47,21 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     private FrameLayout mviewpager;
     private View viewbar;
 
+    private int currIndex;
+
+    private ViewPager viewPager;
 
     private TextView name_id;
+
+
+    //几个代表页面的常量
+    public static final int PAGE_ONE = 0;
+    public static final int PAGE_TWO = 1;
+    public static final int PAGE_THREE = 2;
+    public static final int PAGE_FOUR = 3;
+
+    private MyFragmentPagerAdapter mAdapter;
+
 
     public MyFragment(String content) {
         this.content = content;
@@ -62,6 +80,12 @@ public class MyFragment extends Fragment implements View.OnClickListener{
             fManager = getFragmentManager();
             bindViews();
             homepageSite.performClick();   //模拟一次点击，既进去后选择第一项
+
+            //给ViewPager设置适配器
+
+//            mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+//            viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentlist));
+           // viewPager.setCurrentItem(2);//设置当前显示标签页为第一页
 
             /******************************browse页面************************************/
         } else if (content.equals("browse")) {
@@ -134,32 +158,6 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         homeGroupTicket.setOnClickListener(this);
 
         viewbar = (View) view.findViewById(R.id.id_bar);
-
-       /* //得到屏幕的宽度
-        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        int width = wm.getDefaultDisplay().getWidth();
-
-        // 设置滚动条宽度为屏幕宽度的1/4
-        int  tabLineLength = width / 4;
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) viewbar.getLayoutParams();
-        lp.width = tabLineLength;
-        viewbar.setLayoutParams(lp);*/
-
-
-       /* homepageSite.setOnClickListener(new MyFragment.txListner(0));
-        homepageHotel.setOnClickListener(new MyFragment.txListner(1));
-        homepageTraffic.setOnClickListener(new MyFragment.txListner(2));
-        homeGroupTicket.setOnClickListener(new MyFragment.txListner(3));*/
-    }
-
-    //监听页面切换
-    private class txListner implements View.OnClickListener {
-        private int index = 0;
-        public txListner (int i){
-            index = i;
-        }
-        public void onClick(View v){
-        }
     }
 
     //重置所有文本的选中状态
@@ -227,5 +225,51 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         }
         fTransaction.commit();
     }
+
+    /*@Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.id_homepage_site:
+                viewPager.setCurrentItem(PAGE_ONE);
+                break;
+            case R.id.id_homepage_traffic:
+                viewPager.setCurrentItem(PAGE_TWO);
+                break;
+            case R.id.id_homepage_hotel:
+                viewPager.setCurrentItem(PAGE_THREE);
+                break;
+            case R.id.id_homepage_group_ticket:
+                viewPager.setCurrentItem(PAGE_FOUR);
+                break;
+        }
+    }
+
+*/
+//    //重写ViewPager页面切换的处理方法
+//    @Override
+//    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//    }
+//
+//    @Override
+//    public void onPageSelected(int position) {
+//    }
+//
+//    @Override
+//    public void onPageScrollStateChanged(int state) {
+//        /*//state的状态有三个，0表示什么都没做，1正在滑动，2滑动完毕
+//        if (state == 2) {
+//            switch (viewPager.getCurrentItem()) {
+//                case PAGE_ONE:
+//                    rb_channel.setChecked(true);
+//                    break;
+//                case PAGE_TWO:
+//                    rb_message.setChecked(true);
+//                    break;
+//                case PAGE_THREE:
+//                    rb_better.setChecked(true);
+//                    break;
+//            }
+//        }*/
+//    }
 
 }

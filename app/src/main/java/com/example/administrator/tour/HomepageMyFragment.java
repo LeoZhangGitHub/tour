@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -29,16 +33,34 @@ import java.util.List;
  * Created by Administrator on 2018/4/3/003.
  */
 
-public class HomepageMyFragment extends Fragment{
+public class HomepageMyFragment extends Fragment {
 
     private View view;
     private String content;
+
+    private TextView textViewSite;
+    private TextView textViewTraffic;
+    private TextView textViewHotel;
+    private TextView textViewGroupTicket;
+
+/*
+    //几个代表页面的常量
+    public static final int PAGE_ONE = 0;
+    public static final int PAGE_TWO = 1;
+    public static final int PAGE_THREE = 2;
+    public static final int PAGE_FOUR = 3;
+*/
+
+
     public HomepageMyFragment(String content) {
         this.content = content;
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
 
         /******************************homepage_site************************************/
         if (content.equals("homepage_site")) {
@@ -168,5 +190,6 @@ public class HomepageMyFragment extends Fragment{
         }
         return view;
     }
+
 }
 
