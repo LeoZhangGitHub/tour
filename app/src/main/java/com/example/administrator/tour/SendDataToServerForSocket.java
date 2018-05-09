@@ -29,7 +29,7 @@ public class SendDataToServerForSocket {
 
     public void SendDataToServer() throws IOException {
             //1.创建客户端Socket，指定服务器地址和端口
-            Socket socket = new Socket("192.168.31.142", 12345);
+            Socket socket = new Socket("192.168.25.1", 12345);
             //2.获取输出流，向服务器端发送信息
             OutputStream os = socket.getOutputStream();//字节输出流
             PrintWriter pw = new PrintWriter(os);//将输出流包装为打印流

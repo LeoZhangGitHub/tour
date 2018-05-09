@@ -54,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
                         public void run() {
                                 String name=editAccount.getText().toString();
                                 String pwd=editPassword.getText().toString();
-                               new SendDataToServerForSocket(name, pwd);
-                            //new SendDataToServerForGet(handler).SendDataToServerForGet(name, pwd);
+                            // new SendDataToServerForSocket(name, pwd);
+                            new SendDataToServerForGet(handler).SendDataToServerForGet(name, pwd);
 
                         }
                     }.start();
