@@ -1,20 +1,15 @@
 package com.example.administrator.tour;
 
-import android.nfc.Tag;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.transform.stream.StreamResult;
 
 /**
  * Created by Administrator on 2018/3/28/028.

@@ -14,6 +14,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by xiaocheng_zhang on 2018/3/01 .
  */
@@ -144,8 +147,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //设置addbutton隐藏
                 addButton.setVisibility(View.INVISIBLE);
 
+                //通过Intent获取username
+                Intent intent = getIntent();
+                String username = intent.getStringExtra("username");
+
                 if(fg3 == null){
                     fg3 = new MyFragment("mine");
+                    fg3.getUsername(username);
                     fTransaction.add(R.id.ly_content,fg3);
                 }else{
                     fTransaction.show(fg3);

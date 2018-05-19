@@ -22,6 +22,16 @@ import android.widget.TextView;
 
 import com.example.administrator.tour.homepage.MyFragmentPagerAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +43,17 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     private String content;
     private View view;
 
+    private String username;
+    private String phoneNumber;
+
     //UI Object
     private TextView txt_topbar;
     private TextView homepageSite;
     private TextView homepageHotel;
     private TextView homepageTraffic;
     private TextView homeGroupTicket;
+
+    private String phoneNumberText;
 
     //Fragment Object
     private HomepageMyFragment fg1, fg2, fg3, fg4;
@@ -52,6 +67,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     private ViewPager viewPager;
 
     private TextView name_id;
+    private TextView phone_number;
 
 
     //几个代表页面的常量
@@ -59,6 +75,8 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     public static final int PAGE_TWO = 1;
     public static final int PAGE_THREE = 2;
     public static final int PAGE_FOUR = 3;
+
+    private SendDataToServerForSocket sendDataToServerForSocket;
 
     private MyFragmentPagerAdapter mAdapter;
 
@@ -126,13 +144,74 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         } else if (content.equals("mine")) {
             view = inflater.inflate(R.layout.activity_mine, container, false);
 
-            //设置头像为圆形
 
+            //设置头像为圆形
             RoundImageView img_round = (RoundImageView) view.findViewById(R.id.head);
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.head);
             img_round.setBitmap(bitmap);
 
+            //设置用户名
             name_id = (TextView) view.findViewById(R.id.name);
+            name_id.setText(username);
+
+            //获取电话号码
+            phone_number = (TextView) view.findViewById(R.id.phone_number);
+
+            sendDataToServerForSocket =
+                    new SendDataToServerForSocket(username);
+
+            sendDataToServerForSocket.SendDataToServer();
+
+            /*//设置android客户端和服务器的连接 进行登录
+            try {
+                new Thread() {
+                    @Override
+                    public void run() {
+
+                        sendDataToServerForSocket.SendDataToServer();
+
+                       *//* try {
+                            phoneNumberText = sendDataToServerForSocket.getUserPhoneNumber(username);
+                            System.out.println(phoneNumberText);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }*//*
+*//*
+                        //设置电话号码
+                        phone_number.setText(phoneNumberText);*//*
+
+                    }
+                }.start();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+*/
+
+            phone_number.setText("手机号码：15955487001");
+           /* phone_number.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    *//*new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                phoneNumberText = sendDataToServerForSocket.getUserPhoneNumber(username);
+                            } catch (IOException e) {
+                                //
+                            }
+                        }
+                    }.start();*//*
+                    try {
+                        submit();
+                        //sendPic();
+                    } catch (JSONException e) {
+
+                    }
+                }
+            });*/
+
             name_id.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -144,6 +223,79 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    public void sendPic() throws IOException{
+
+        new Thread(new  Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    //1.连接诶服务器
+                    Socket s = new Socket("127.0.0.1", 5612);
+                    System.out.println("已连接到服务器5612端口，准备传送图片...");
+                    //获取图片字节流
+                    FileInputStream fis = new FileInputStream("head.jpg");
+                    //获取输出流
+                    OutputStream out = s.getOutputStream();
+                    byte[] buf = new byte[1024];
+                    int len = 0;
+                    //2.往输出流里面投放数据
+                    while ((len = fis.read(buf)) != -1) {
+                        out.write(buf, 0, len);
+                    }
+                    //通知服务端，数据发送完毕
+                    s.shutdownOutput();
+                    //3.获取输出流，接受服务器传送过来的消息“上传成功”
+                    InputStream in = s.getInputStream();
+                    byte[] bufIn = new byte[1024];
+                    int num = in.read(bufIn);
+                    System.out.println(new String(bufIn, 0, num));
+                    //关闭资源
+                    fis.close();
+                    out.close();
+                    in.close();
+                    s.close();
+                } catch (IOException e) {
+
+                }
+            }
+        }).start();
+    }
+
+    public void submit() throws JSONException{
+
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("doWhat", "site");
+        jsonObject.put("name", "zhang");
+        jsonObject.put("password", "123");
+        final String  result=jsonObject.toString();
+
+        new Thread(new  Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    Socket socket=new Socket(InetAddress.getByName("192.168.138.84"), 12345);
+                    OutputStream os=socket.getOutputStream();
+                    os.write(result.getBytes());
+                    os.flush();
+                    //防止服务端read方法读阻塞
+                    socket.shutdownOutput();
+                } catch (UnknownHostException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+    private void getPhoneNumberText(String phoneNumberText, String username) {
+
+    }
 
     private void bindViews() {
         txt_topbar = (TextView) view.findViewById(R.id.txt_topbar);
@@ -225,6 +377,15 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         }
         fTransaction.commit();
     }
+
+    public void getUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
 
     /*@Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {

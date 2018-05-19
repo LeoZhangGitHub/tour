@@ -1,5 +1,6 @@
 package com.example.administrator.tour;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -18,14 +22,32 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editAccount,editPassword;
     private Button loginButton;
 
+    private String name;
+    private String pwd;
+
     Handler handler=new Handler(){
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SendDataToServerForGet.SEND_SUCCESS:
                     Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.putExtra("username", name);
+                    intent.setClass(LoginActivity.this, MainActivity.class);
+
+                    //创建JSON对象
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("doWhat", "username");
+                        jsonObject.put("username", name);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String result = jsonObject.toString();
+                    SendResultToServer.getInstance().commit(result);
+                    startActivity(intent);
                     break;
                 case SendDataToServerForGet.SEND_FAIL:
-                    Toast.makeText(LoginActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "登陆失败，请检查用户名或密码！", Toast.LENGTH_SHORT).show();
                     break;
 
                 default:
@@ -52,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                     new Thread() {
                         @Override
                         public void run() {
-                                String name=editAccount.getText().toString();
-                                String pwd=editPassword.getText().toString();
+                                name=editAccount.getText().toString();
+                                pwd=editPassword.getText().toString();
                             // new SendDataToServerForSocket(name, pwd);
                             new SendDataToServerForGet(handler).SendDataToServerForGet(name, pwd);
 

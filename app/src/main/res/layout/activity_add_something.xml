@@ -26,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="标题:"
+        android:layout_marginLeft="5dp"
         android:textColor="@color/bg_black"
         android:textSize="20dp"/>
 
@@ -33,6 +34,8 @@
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:textColor="@color/bg_black"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/article_title"
         android:background="@drawable/shape_edittext"/>
 
     <TextView
@@ -40,13 +43,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="内容:"
+        android:layout_marginLeft="5dp"
         android:textColor="@color/bg_black"
         android:textSize="20dp"/>
 
     <EditText
-        android:id="@+id/etContent"
+        android:id="@+id/article_content"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
         android:textColor="@color/bg_black"
         android:textSize="20dp"
         android:paddingTop="8dp"
@@ -58,4 +63,10 @@
         android:layout_height="96dp"
         android:layout_marginTop="24dp"
         android:src="@mipmap/add"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/button_add_"
+        android:text="发表"/>
 </LinearLayout>
