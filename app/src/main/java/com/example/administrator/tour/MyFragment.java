@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,8 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     private TextView name_id;
     private TextView phone_number;
 
+    private String browseData;
+
 
     //几个代表页面的常量
     public static final int PAGE_ONE = 0;
@@ -79,6 +82,17 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     private SendDataToServerForSocket sendDataToServerForSocket;
 
     private MyFragmentPagerAdapter mAdapter;
+
+    public static MyFragment instance;
+
+    public static MyFragment getInstance(){
+        if(instance == null){
+
+            instance = new MyFragment("browse");
+
+        }
+        return instance;
+    }
 
 
     public MyFragment(String content) {
@@ -109,17 +123,32 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         } else if (content.equals("browse")) {
             view = inflater.inflate(R.layout.activity_browse, container, false);
 
+            System.out.println(this.browseData);
 
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             List<BrowseData> dataList = new ArrayList<>();
             //for (int i = 0; i < 40; i++) {
-                BrowseData data = new BrowseData("成都火锅大全", "成都，真正属于吃货的天堂，成都人不仅爱吃，而且会吃。","site1");
-                BrowseData data1 = new BrowseData("今年最火的古镇群", "趁着天气还不是很热，出去玩儿的心是不是又开始蠢蠢欲动了？快来这里看看。","site2");
-                BrowseData data2 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
-                dataList.add(data);
+            BrowseData data = new BrowseData("成都火锅大全", "成都，真正属于吃货的天堂，成都人不仅爱吃，而且会吃。","site1");
+            BrowseData data1 = new BrowseData("今年最火的古镇群", "趁着天气还不是很热，出去玩儿的心是不是又开始蠢蠢欲动了？快来这里看看。","site2");
+            BrowseData data2 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
+            BrowseData data5 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
+            BrowseData data6 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
+            BrowseData data7 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
+            BrowseData data3 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
+            BrowseData data4 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
+            BrowseData data8 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
+
+            dataList.add(data);
+                dataList.add(data1);
                 dataList.add(data1);
                 dataList.add(data2);
+                dataList.add(data3);
+                dataList.add(data4);
+                dataList.add(data5);
+                dataList.add(data6);
+                dataList.add(data7);
+                dataList.add(data8);
            // }
             MyRecyclerAdapter adapter = new MyRecyclerAdapter(getActivity(), dataList);
 
@@ -190,25 +219,26 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 */
 
             phone_number.setText("手机号码：15955487001");
-           /* phone_number.setOnClickListener(new View.OnClickListener() {
+            /*phone_number.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    *//*new Thread() {
+                    new Thread() {
                         @Override
                         public void run() {
                             try {
-                                phoneNumberText = sendDataToServerForSocket.getUserPhoneNumber(username);
+                                phoneNumberText = sendDataToServerForSocket.getUserPhoneNumber("wwoshinidie");
+                                System.out.println("******"+phoneNumberText);
                             } catch (IOException e) {
                                 //
                             }
                         }
-                    }.start();*//*
-                    try {
+                    }.start();
+                    *//*try {
                         submit();
                         //sendPic();
                     } catch (JSONException e) {
 
-                    }
+                    }*//*
                 }
             });*/
 
@@ -262,6 +292,9 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         }).start();
     }
 
+    public void setBrowseData(String result) {
+        this.browseData = result;
+    }
     public void submit() throws JSONException{
 
         JSONObject jsonObject=new JSONObject();

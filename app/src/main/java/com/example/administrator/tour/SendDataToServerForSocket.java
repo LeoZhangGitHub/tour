@@ -115,7 +115,7 @@ public class SendDataToServerForSocket {
         return phoneNumber;
 
     }*/
-    //从服务器获取电话号码
+    /*//从服务器获取电话号码
     public String getUserPhoneNumber(String username) throws IOException{
         String msg = username;
         String phoneNumber =null;
@@ -131,6 +131,28 @@ public class SendDataToServerForSocket {
 
         }
         return phoneNumber;
+
+    }*/
+    public String getArticleData(String ID) throws IOException{
+        socket = new Socket(HOST, PORT);
+        String phoneNumber =null;
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+                socket.getOutputStream())), true);
+        String msg = ID;
+        String articleData =null;
+        if (socket.isConnected()) {
+            if (!socket.isOutputShutdown()) {
+                out.println(msg);
+                try {
+                    articleData = in.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        return articleData;
 
     }
 

@@ -14,6 +14,10 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +35,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView txt_browse;
     private TextView txt_mine;
 
+    private String username;
+
 
     //fragment
     private FrameLayout ly_content;
     //Fragment Object
     private MyFragment fg1,fg2,fg3;
     private FragmentManager fManager;
+
+    private static SendDataToServerForSocket sendDataToServerForSocket;
 
     //登录页面
     private EditText editAccount,editPassword;
@@ -139,6 +147,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else{
                     fTransaction.show(fg2);
                 }
+
+                JSONObject jsonObject=new JSONObject();
+                try {
+                    jsonObject.put("doWhat", "getbrowse");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                final String  result=jsonObject.toString();
+
+                sendDataToServerForSocket =
+                        new SendDataToServerForSocket("zhang");
+
+                new Thread(){
+                    @Override
+                    public void run() {
+                        try {
+                            String aa = sendDataToServerForSocket.getArticleData(result);
+                            MyFragment.getInstance().setBrowseData(aa);
+                            System.out.println(aa);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+
+
                 break;
             case R.id.txt_mine:
                 setSelected();
@@ -150,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //通过Intent获取username
                 Intent intent = getIntent();
                 String username = intent.getStringExtra("username");
+                setUsername(username);
 
                 if(fg3 == null){
                     fg3 = new MyFragment("mine");
@@ -162,5 +199,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         fTransaction.commit();
+    }
+
+    private void setUsername(String username) {
+        this.username = username;
     }
 }
