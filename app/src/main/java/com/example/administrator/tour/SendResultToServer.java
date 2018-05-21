@@ -49,4 +49,28 @@ public class SendResultToServer {
         }).start();
     }
 
+   /* public void reserve(final String result) {
+        new Thread(new  Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    Socket socket=new Socket(InetAddress.getByName("192.168.138.84"), 12345);
+                    OutputStream os=socket.getOutputStream();
+                    os.write(result.getBytes());
+                    os.flush();
+                    //防止服务端read方法读阻塞
+                    socket.shutdownOutput();
+                } catch (UnknownHostException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+*/
 }

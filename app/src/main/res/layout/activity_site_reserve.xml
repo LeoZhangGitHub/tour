@@ -3,8 +3,15 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#FCFCFC">
-
+    android:background="#FCFCFC"
+    >
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
     <TextView
         android:padding="12dp"
         android:id="@+id/site_title"
@@ -53,6 +60,12 @@
         android:text="价格：5000"
         android:textColor="@color/cyan" />
 
+    <ScrollView
+        android:id="@+id/id_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
     <ImageView
         android:layout_marginLeft="5dp"
         android:id="@+id/head_img"
@@ -64,20 +77,21 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/huainan" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical">
+    </ScrollView>
+    <Button
+        android:id="@+id/id_site_button_reserve"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#008000"
+        android:gravity="center"
+        android:text="预定"
+        android:textSize="20sp" />
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="20dp"
+         />
 
-        <Button
-            android:id="@+id/id_site_button_reserve"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:background="#008000"
-            android:gravity="center"
-            android:text="预定"
-            android:textSize="20sp" />
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

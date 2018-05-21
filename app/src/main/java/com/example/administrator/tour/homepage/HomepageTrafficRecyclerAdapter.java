@@ -1,13 +1,21 @@
 package com.example.administrator.tour.homepage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.administrator.tour.MainActivity;
 import com.example.administrator.tour.R;
+import com.example.administrator.tour.SendResultToServer;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -74,10 +82,21 @@ public class HomepageTrafficRecyclerAdapter extends RecyclerView.Adapter<Homepag
 
         private TextView traffic_price;
 
+        private Button traffic_reserve;
+
         MyViewHolder(View itemView) {
             super(itemView);
             traffic_title = (TextView) itemView.findViewById(R.id.traffic_title);
             traffic_price = (TextView) itemView.findViewById(R.id.traffic_price);
+            traffic_reserve = (Button) itemView.findViewById(R.id.button_traffic_reserve);
+            traffic_reserve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //发送预订请求
+
+                }
+            });
         }
     }
 

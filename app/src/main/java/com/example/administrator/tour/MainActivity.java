@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fTransaction.show(fg2);
                 }
 
-                JSONObject jsonObject=new JSONObject();
+               /* JSONObject jsonObject=new JSONObject();
                 try {
                     jsonObject.put("doWhat", "getbrowse");
                 } catch (JSONException e) {
@@ -166,13 +166,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         try {
                             String aa = sendDataToServerForSocket.getArticleData(result);
                             MyFragment.getInstance().setBrowseData(aa);
-                            System.out.println(aa);
+                            System.out.println("+++"+aa);
 
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                }.start();
+                }.start();*/
 
 
                 break;

@@ -55,14 +55,22 @@ public class ShareSomething extends Activity{
             @Override
             public void onClick(View view) {
                 try {
-                    if (articleTitle.getText().length() < 1) {
+                 /*   System.out.println("afsfasf");
+                    System.out.println(articleTitle.getText());*/
+                    /*if (articleTitle.getText().length() < 1) {
                         Toast.makeText(ShareSomething.this, "请输入标题！", Toast.LENGTH_SHORT).show();
                         if (articleContent.getText().length() < 1) {
                             Toast.makeText(ShareSomething.this, "没有任何内容！", Toast.LENGTH_SHORT).show();
-                        } else {
+                        } else {*/
+                            JSONObject jsonObject=new JSONObject();
+                            jsonObject.put("doWhat", "article");
+                            jsonObject.put("Title", articleTitle.getText());
+                            jsonObject.put("Content",articleContent.getText());
+                            final String  result = jsonObject.toString();
+                            System.out.println(result);
                             submit();
-                        }
-                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -78,6 +86,7 @@ public class ShareSomething extends Activity{
         jsonObject.put("Title", articleTitle.getText());
         jsonObject.put("Content",articleContent.getText());
         final String  result = jsonObject.toString();
+        System.out.println(result);
         //发送到服务器
         SendResultToServer.getInstance().commit(result);
 

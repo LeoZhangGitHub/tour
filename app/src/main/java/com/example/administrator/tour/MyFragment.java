@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,7 +42,7 @@ import java.util.List;
  * Created by Administrator on 2018/3/21/021.
  */
 
-public class MyFragment extends Fragment implements View.OnClickListener{
+public class MyFragment extends Fragment implements View.OnClickListener {
     private String content;
     private View view;
 
@@ -56,8 +58,10 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
     private String phoneNumberText;
 
+    public static final int SEND_SUCCESS=0x123;
+
     //Fragment Object
-    private HomepageMyFragment fg1, fg2, fg3, fg4;
+    private HomepageMyFragment fg1,fg2,fg3,fg4;
     private FragmentManager fManager;
 
     private FrameLayout mviewpager;
@@ -79,14 +83,65 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     public static final int PAGE_THREE = 2;
     public static final int PAGE_FOUR = 3;
 
+    private JSONObject jsonObject;
+
+    private String aa;
+
     private SendDataToServerForSocket sendDataToServerForSocket;
 
     private MyFragmentPagerAdapter mAdapter;
 
     public static MyFragment instance;
 
-    public static MyFragment getInstance(){
-        if(instance == null){
+    public Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+
+            if (msg.arg1 == 1) {
+            }
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            List<BrowseData> dataList = new ArrayList<>();
+
+            String id = "";
+            String title = "";
+            String content = "";
+            try {
+                id = jsonObject.get("id").toString();
+                title = jsonObject.get("article").toString();
+                content = jsonObject.get("content").toString();
+                System.out.println(id + "  " + " " + title + " dfs" + content);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            BrowseData data = new BrowseData("成都火锅大全", "成都，真正属于吃货的天堂，成都人不仅爱吃，而且会吃。", "site1");
+            BrowseData data1 = new BrowseData(title, content, "site2");
+
+            dataList.add(data);
+            dataList.add(data1);
+            MyRecyclerAdapter adapter = new MyRecyclerAdapter(getActivity(), dataList);
+
+
+            adapter.setOnRecyclerViewListener(new MyRecyclerAdapter.OnRecyclerViewListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Intent intent = new Intent(getActivity(), ArticleActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onItemLongClick(View view, int position) {
+
+                }
+            });
+
+            recyclerView.setAdapter(adapter);
+        }
+    };
+
+    public static MyFragment getInstance() {
+        if (instance == null) {
 
             instance = new MyFragment("browse");
 
@@ -107,7 +162,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         if (content.equals("homepage")) {
             view = inflater.inflate(R.layout.activity_homepage, container, false);
 
-            mviewpager = (FrameLayout)view.findViewById(R.id.lya_content);
+            mviewpager = (FrameLayout) view.findViewById(R.id.lya_content);
 
             fManager = getFragmentManager();
             bindViews();
@@ -117,39 +172,45 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
 //            mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
 //            viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentlist));
-           // viewPager.setCurrentItem(2);//设置当前显示标签页为第一页
+            // viewPager.setCurrentItem(2);//设置当前显示标签页为第一页
 
             /******************************browse页面************************************/
         } else if (content.equals("browse")) {
             view = inflater.inflate(R.layout.activity_browse, container, false);
 
-            System.out.println(this.browseData);
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("doWhat", "getbrowse");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
+            final String result = jsonObject.toString();
+
+            sendDataToServerForSocket =
+                    new SendDataToServerForSocket("zhang");
+
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        aa = sendDataToServerForSocket.getArticleData(result);
+                        JSONObject jsonObject = new JSONObject(aa);
+                        setBrowseData(jsonObject);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+
+           /* RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             List<BrowseData> dataList = new ArrayList<>();
-            //for (int i = 0; i < 40; i++) {
-            BrowseData data = new BrowseData("成都火锅大全", "成都，真正属于吃货的天堂，成都人不仅爱吃，而且会吃。","site1");
-            BrowseData data1 = new BrowseData("今年最火的古镇群", "趁着天气还不是很热，出去玩儿的心是不是又开始蠢蠢欲动了？快来这里看看。","site2");
-            BrowseData data2 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
-            BrowseData data5 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
-            BrowseData data6 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
-            BrowseData data7 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
-            BrowseData data3 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
-            BrowseData data4 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
-            BrowseData data8 = new BrowseData("来自北方的10大古镇", "相对于南方古镇的婉约，北方古镇则显得豪放、大气。。","site3");
 
+            BrowseData data = new BrowseData("成都火锅大全", "成都，真正属于吃货的天堂，成都人不仅爱吃，而且会吃。", "site1");
             dataList.add(data);
-                dataList.add(data1);
-                dataList.add(data1);
-                dataList.add(data2);
-                dataList.add(data3);
-                dataList.add(data4);
-                dataList.add(data5);
-                dataList.add(data6);
-                dataList.add(data7);
-                dataList.add(data8);
-           // }
             MyRecyclerAdapter adapter = new MyRecyclerAdapter(getActivity(), dataList);
 
 
@@ -166,7 +227,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                 }
             });
 
-            recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);*/
 
 
             /******************************mine页面************************************/
@@ -176,7 +237,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
             //设置头像为圆形
             RoundImageView img_round = (RoundImageView) view.findViewById(R.id.head);
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.head);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.head);
             img_round.setBitmap(bitmap);
 
             //设置用户名
@@ -253,9 +314,10 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-    public void sendPic() throws IOException{
 
-        new Thread(new  Runnable() {
+    public void sendPic() throws IOException {
+
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -292,24 +354,28 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         }).start();
     }
 
-    public void setBrowseData(String result) {
-        this.browseData = result;
+    public void setBrowseData(JSONObject result) {
+        this.jsonObject = result;
+        Message message = new Message();
+        message.arg1=1;
+        handler.sendMessage(message);
     }
-    public void submit() throws JSONException{
 
-        JSONObject jsonObject=new JSONObject();
+    public void submit() throws JSONException {
+
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("doWhat", "site");
         jsonObject.put("name", "zhang");
         jsonObject.put("password", "123");
-        final String  result=jsonObject.toString();
+        final String result = jsonObject.toString();
 
-        new Thread(new  Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
 
                 try {
-                    Socket socket=new Socket(InetAddress.getByName("192.168.138.84"), 12345);
-                    OutputStream os=socket.getOutputStream();
+                    Socket socket = new Socket(InetAddress.getByName("192.168.138.84"), 12345);
+                    OutputStream os = socket.getOutputStream();
                     os.write(result.getBytes());
                     os.flush();
                     //防止服务端read方法读阻塞
@@ -346,7 +412,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     }
 
     //重置所有文本的选中状态
-    private void setSelected(){
+    private void setSelected() {
         homepageTraffic.setSelected(false);
         homeGroupTicket.setSelected(false);
         homepageHotel.setSelected(false);
@@ -354,55 +420,55 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     }
 
     //隐藏所有Fragment
-    private void hideAllFragment(android.app.FragmentTransaction fragmentTransaction){
-        if(fg1 != null)fragmentTransaction.hide(fg1);
-        if(fg2 != null)fragmentTransaction.hide(fg2);
-        if(fg3 != null)fragmentTransaction.hide(fg3);
-        if(fg4 != null)fragmentTransaction.hide(fg4);
+    private void hideAllFragment(android.app.FragmentTransaction fragmentTransaction) {
+        if (fg1 != null) fragmentTransaction.hide(fg1);
+        if (fg2 != null) fragmentTransaction.hide(fg2);
+        if (fg3 != null) fragmentTransaction.hide(fg3);
+        if (fg4 != null) fragmentTransaction.hide(fg4);
     }
 
     @Override
     public void onClick(View v) {
         android.app.FragmentTransaction fTransaction = fManager.beginTransaction();
         hideAllFragment(fTransaction);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.id_homepage_site:
                 setSelected();
                 homepageSite.setSelected(true);
-                if(fg1 == null){
+                if (fg1 == null) {
                     fg1 = new HomepageMyFragment("homepage_site");
-                    fTransaction.add(R.id.lya_content,fg1);
-                }else{
+                    fTransaction.add(R.id.lya_content, fg1);
+                } else {
                     fTransaction.show(fg1);
                 }
                 break;
             case R.id.id_homepage_traffic:
                 setSelected();
                 homepageTraffic.setSelected(true);
-                if(fg2 == null){
+                if (fg2 == null) {
                     fg2 = new HomepageMyFragment("homepage_traffic");
-                    fTransaction.add(R.id.lya_content,fg2);
-                }else{
+                    fTransaction.add(R.id.lya_content, fg2);
+                } else {
                     fTransaction.show(fg2);
                 }
                 break;
             case R.id.id_homepage_hotel:
                 setSelected();
                 homepageHotel.setSelected(true);
-                if(fg3 == null){
+                if (fg3 == null) {
                     fg3 = new HomepageMyFragment("homepage_hotel");
-                    fTransaction.add(R.id.lya_content,fg3);
-                }else{
+                    fTransaction.add(R.id.lya_content, fg3);
+                } else {
                     fTransaction.show(fg3);
                 }
                 break;
             case R.id.id_homepage_group_ticket:
                 setSelected();
                 homeGroupTicket.setSelected(true);
-                if(fg4 == null){
+                if (fg4 == null) {
                     fg4 = new HomepageMyFragment("homepage_group_ticket");
-                    fTransaction.add(R.id.lya_content,fg4);
-                }else{
+                    fTransaction.add(R.id.lya_content, fg4);
+                } else {
                     fTransaction.show(fg4);
                 }
                 break;
