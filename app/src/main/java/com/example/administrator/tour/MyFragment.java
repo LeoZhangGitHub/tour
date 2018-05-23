@@ -13,14 +13,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.administrator.tour.homepage.MyFragmentPagerAdapter;
@@ -234,6 +231,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         } else if (content.equals("mine")) {
             view = inflater.inflate(R.layout.activity_mine, container, false);
 
+            Button myOrderButton = (Button) view.findViewById(R.id.order_button);
+            myOrderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+                    startActivity(intent);
+                }
+            });
 
             //设置头像为圆形
             RoundImageView img_round = (RoundImageView) view.findViewById(R.id.head);
@@ -247,10 +252,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             //获取电话号码
             phone_number = (TextView) view.findViewById(R.id.phone_number);
 
-            sendDataToServerForSocket =
+           /* sendDataToServerForSocket =
                     new SendDataToServerForSocket(username);
 
-            sendDataToServerForSocket.SendDataToServer();
+            sendDataToServerForSocket.SendDataToServer();*/
 
             /*//设置android客户端和服务器的连接 进行登录
             try {
